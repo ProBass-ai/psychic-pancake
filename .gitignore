@@ -1,0 +1,6 @@
+/.idea
+/.vscode
+/.apt_generated
+/.apt_generated_tests
+/target
+.env
