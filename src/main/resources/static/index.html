@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Samantha's Peace</title>
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+</head>
+
+<body>
+
+    <div class="loader_container">
+        <header>
+            <h1 href="/">Samantha's Peace</h1>
+
+            <div class="dropdown-menu-container">
+                <button class="dropdown-menu-button">Menu</button>
+                <div class="dropdown-menu-content">
+                    <a href="#">Option 1</a>
+                    <a href="#">Option 2</a>
+                    <a href="#">Option 3</a>
+                </div>
+            </div>
+
+        </header>
+
+
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a id="about-button" type="button">About</a></li>
+                <li><a id="login-button" type="button">Login</a></li>
+                <li><a id="new-account-button" type="button">Create New Account</a></li>
+            </ul>
+        </nav>
+
+        <main id="middle">
+        </main>
+
+    </div>
+
+    <script type="module" src="./js/index.js"></script>
+
+
+    <script id="main-page-template" type="text/x-handlebars-template">
+        <h2 id="main-page-header2">Welcome to Samantha's Peace</h2>
+        <p></p>
+        <p></p>
+    </script>
+
+
+    <script id="login-template" type="text/handlebars-template">
+        <div>
+            <aside>
+
+            </aside>
+
+            <form id="login-form">
+                <input type="email" name="email" id="email" />Enter Email</input>
+                <input type="password" name="email" id="password" />Enter Password</input>
+                <input type="submit" value="Login" />
+            </form>
+        </div>
+    </script>
+
+    <script id="new-account-template" type="text/handlebars-template">
+        <div>
+            <aside>
+
+            </aside>
+
+            <form id="new-account-form">
+                <label for="fname">First name:</label>
+                <input type="text" id="fname" name="fname"><br><br>
+                <label for="lname">Last name:</label>
+                <input type="text" id="lname" name="lname"><br><br>
+            </form>
+        </div>
+    </script>
+
+    <script id="about-template" type="text/handlebars-template">
+        <p>
+            Samanthas Peace about page!!!
+        </p>
+    </script>
+
+    <footer id="footer">
+        <p>Copyright &copy; 2023 Samantha's Peace</p>
+    </footer>
+
+</body>
+
+</html>
