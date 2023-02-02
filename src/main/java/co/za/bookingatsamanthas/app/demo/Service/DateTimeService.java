@@ -2,6 +2,7 @@ package co.za.bookingatsamanthas.app.demo.Service;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -23,11 +24,18 @@ public class DateTimeService {
 
 
     public String getDateTimeNow() {
+        Date date = new Date();
+
         return LocalDateTime.now().toString();
     }
 
+    public String getTodaysDate(){
+        LocalDate localDate = LocalDate.now();
+        return localDate.toString();
+    }
 
-    public int getNthDayOf(Date date) {
+
+    public int getNthOfDay(Date date) {
 
         calendar = Calendar.getInstance();
         calendar.setTime(date);

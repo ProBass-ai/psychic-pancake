@@ -24,8 +24,20 @@ export function renderCreateNewAccountPage(){
     document.getElementById("middle").innerHTML = template();
 }
 
-export function renderNewAccPage(){
-    var script = document.getElementById("after-submission-template").innerHTML;
+export function renderNewAccPage(data){
+
+    var script = document.getElementById("after-login").innerHTML;
+
     var template = Handlebars.compile(script);
-    document.getElementById("middle").innerHTML = template();
-}
+    
+
+    
+
+
+    const compiledHtml = template(data);
+
+    
+    document.getElementById("middle").innerHTML = compiledHtml;
+
+  }
+  

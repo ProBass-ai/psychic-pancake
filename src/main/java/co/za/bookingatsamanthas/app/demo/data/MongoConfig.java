@@ -24,4 +24,5 @@ public class MongoConfig {
     public MongoTemplate mongoTemplate() {
         return new MongoTemplate(mongoClient(), "application-database");
     }
+
 }

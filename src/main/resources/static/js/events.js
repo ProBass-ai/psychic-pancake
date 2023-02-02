@@ -21,8 +21,31 @@ export function logEventListeners() {
       if (createNewAccountForm) {
         createNewAccountForm.addEventListener("click", function(event) {
           event.preventDefault();
-          functions.createNewAccount();
-          pages.renderNewAccPage();
+
+
+        var userDetails = JSON.parse(functions.createNewAccount());
+
+          const context = {
+            name : userDetails.name,
+            surname : userDetails.surname,
+            email : userDetails.email,
+            phoneNumber : userDetails.phoneNumber,
+            idNumber : userDetails.idNumber
+    
+        };
+
+      //   const context = {
+      //     name : "Tebogo",
+      //     surname : "Lefatola",
+      //     email : "tb@gmail.com",
+      //     phoneNumber : "1234568",
+      //     idNumber : "12345678"
+  
+      // };
+
+          // const context = functions.createNewAccount();
+
+          pages.renderNewAccPage(context);
         });
       }
 

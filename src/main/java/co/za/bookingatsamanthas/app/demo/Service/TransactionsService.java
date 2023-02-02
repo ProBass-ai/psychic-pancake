@@ -45,7 +45,7 @@ public class TransactionsService {
         ArrayList<Date> dates = dth.getFromAndTo(startingDate, endingDate);
 
         for (Date date: dates) {
-            finalCost += (float) (dth.getNthDayOf(date) + 100) / 12;
+            finalCost += (float) (dth.getNthOfDay(date) + 100) / 12;
         }
 
         return String.valueOf(finalCost);

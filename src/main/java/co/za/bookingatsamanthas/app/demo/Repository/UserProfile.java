@@ -17,6 +17,8 @@ public class UserProfile {
     private String phoneNumber;
     private String idNumber;
 
+    private String photoUrl;
+
     public UserProfile(String name, String surname, String email, String phoneNumber, String idNumber) {
         this.name = name;
         this.surname = surname;

@@ -4,6 +4,7 @@ import co.za.bookingatsamanthas.app.demo.Repository.Booking;
 import co.za.bookingatsamanthas.app.demo.Repository.UserProfile;
 import co.za.bookingatsamanthas.app.demo.Service.DatabaseService;
 import com.google.gson.Gson;
+import freemarker.template.utility.NullArgumentException;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.HashMap;
+
+
+
 
 
 
@@ -31,13 +35,12 @@ public class RestController {
 
     @RequestMapping(value = "/new-account", method = RequestMethod.POST)
     public ResponseEntity createNewAccount(@RequestBody String newUserData){
-        System.out.println("Making new UserProfile");
 
         UserProfile newUser = gson.fromJson(newUserData, UserProfile.class);
         Document inserted = dbService.saveNewUSer(newUserData);
 
         if (inserted.isEmpty()){
-            System.out.println("Failed to make object");
+            throw new NullArgumentException("Could not save profile!\nProfile values: " + newUserData);
         }
 
         return new ResponseEntity<>(inserted.toJson(), HttpStatus.OK);
@@ -50,9 +53,11 @@ public class RestController {
         String email = requestBody.get("email");
 
         // must return customers history
-
-
-//        dbService.saveData(newUserData);
+        // go to database
+        // get any booking that contains the customers email(as emails can's be repeated)
+        // get any booking the customer cancelled
+        // get return rooms and their availability status
+        // send them over to front-end
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -78,6 +83,8 @@ public class RestController {
     public ResponseEntity deleteBooking(@RequestBody Booking booking) {
 
         boolean operationResult = dbService.cancelBooking(booking).wasAcknowledged();
+
+        // need to fix validation method
 
         if (operationResult){
             return new ResponseEntity<>(Boolean.toString(operationResult), HttpStatus.ACCEPTED);

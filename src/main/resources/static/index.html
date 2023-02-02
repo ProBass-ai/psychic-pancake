@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./css/normalize.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -99,10 +100,21 @@
         </p>
     </script>
 
-    <script id="after-submission-template" type="text/handlebars-template">
-        <p>
-            Welcome to Samanthas Peace
-        </p>
+    <script id="after-login" type="text/handlebars-template">
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Welcome to Samantha's</title>
+        </head>
+        <body>
+            <h1>Welcome to Samantha's, {{name}} {{surname}}</h1>
+            <p>Your account has been created successfully with the following details:</p>
+            <p>Email: {{email}}</p>
+            <p>Phone Number: {{phoneNumber}}</p>
+            <p>ID Number: {{idNumber}}</p>
+        </body>
+        </html>
+
     </script>
 
     <footer id="footer">
