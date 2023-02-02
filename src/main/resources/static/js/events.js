@@ -29,6 +29,7 @@ export function logEventListeners() {
             console.log(userDetails);
 
             // var userDetails = functions.createNewAccount();
+
             const context = {
               name : userDetails.name,
               surname : userDetails.surname,
@@ -45,6 +46,19 @@ export function logEventListeners() {
       }
 
     });
+
+
+    // const inputImage = document.getElementById("inputImage");
+
+    // inputImage.addEventListener("change", () => {
+    //   const reader = new FileReader();
+    //   reader.readAsDataURL(inputImage.files[0]);
+    //   reader.onload = function () {
+    //     const imageData = reader.result;
+    //     functions.sendImageToServer(imageData);
+    //   };
+
+    //   });
 
     
 }

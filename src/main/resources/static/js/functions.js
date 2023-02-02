@@ -7,6 +7,30 @@ function objectId () {
     return hex(Date.now() / 1000) +
       ' '.repeat(16).replace(/./g, () => hex(Math.random() * 16));
 }
+
+
+async function cancelBooking(){
+
+    //send a POST request to server with booking details in the body
+    fetch("http://localhost:8080/cancel-booking", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bookingDetails)
+    })
+    .then(res => res.json())
+    .then(response => {
+        console.log("Success:", JSON.stringify(response));
+        alert("Booking cancelled successfully!");
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Failed to cancel booking. Please try again later.");
+    });
+
+
+}
   
 
 
@@ -38,5 +62,12 @@ async function createNewAccount() {
 
 }
 
+function sendImageToServer(imageData) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8080/upload", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(`imageData=${encodeURIComponent(imageData)}`);
+  }
 
-export {createNewAccount}
+
+export {createNewAccount, sendImageToServer}
