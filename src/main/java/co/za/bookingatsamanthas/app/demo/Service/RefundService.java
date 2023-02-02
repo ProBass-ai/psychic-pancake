@@ -4,6 +4,7 @@ package co.za.bookingatsamanthas.app.demo.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -12,20 +13,27 @@ public class RefundService {
     @Autowired
     DateTimeService dateTimeService;
 
-    boolean RequestedWithin14Days;
-    boolean RequestedWithin7Days;
-    boolean RequestedFrom2Days;
+    Date dayOfRequest;
 
-    String dayOfRequest;
+    Date dayOfBooking;
 
 
-    public void GetRefundAmout(){
-        dayOfRequest = dateTimeService.getTodaysDate();
+    public String GetRefundAmout(LocalDateTime day, float bookingAmount){
+
+        dayOfRequest = dateTimeService.getDayOfRequest2();
+        dayOfBooking = dateTimeService.ConvertToDateObject(day);
+
+
+        int nthOfBookingDate = dateTimeService.getNthOfDay(dayOfBooking);
+        int nthOfCancelationDate = dateTimeService.getNthOfDay(dayOfRequest);
+        int dayDifference = nthOfCancelationDate - nthOfBookingDate;
+
+
+        return CalculateAmount(dayDifference, bookingAmount);
 
     }
 
-
-    public static String CalculateAmount(int dayDifference, float amount){
+    public String CalculateAmount(int dayDifference, float amount){
 
         if (!(dayDifference <= 7)){
             return String.valueOf(amount);

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,12 +35,21 @@ public class DateTimeService {
         return localDate.toString();
     }
 
+    public Date getDayOfRequest2(){
+        return new Date();
+    };
 
     public int getNthOfDay(Date date) {
 
         calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_YEAR);
+
+    }
+
+    public Date ConvertToDateObject(LocalDateTime localDateTime){
+
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 
     }
 

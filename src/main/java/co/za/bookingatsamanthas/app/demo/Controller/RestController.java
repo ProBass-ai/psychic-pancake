@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Base64;
 import java.util.HashMap;
 
 
@@ -93,6 +94,16 @@ public class RestController {
         }
 
     }
+
+    @PostMapping("/upload")
+    public void uploadImage(@RequestParam("imageData") String imageData) {
+        // Use Base64 decoder to get the binary image data
+        byte[] imageBytes = Base64.getDecoder().decode(imageData.split(",")[1]);
+
+        // Save the image to disk or do whatever you want with it.
+        // ...
+    }
+
 
     private Booking deserilizeBooking(HashMap<String, Object> attr){
 
