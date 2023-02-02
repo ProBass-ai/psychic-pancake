@@ -71,10 +71,24 @@
             </aside>
 
             <form id="new-account-form">
+
                 <label for="fname">First name:</label>
-                <input type="text" id="fname" name="fname"><br><br>
+                <input type="text" id="fname" name="fname" autofocus><br><br>
+
                 <label for="lname">Last name:</label>
                 <input type="text" id="lname" name="lname"><br><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="new-user-email" name="email"><br><br>
+
+                <label for="new-user-phone-number">Phone Number:</label>
+                <input type="text" id="new-user-phone-number" name="phone-number"><br><br>
+
+                <label for="new-user-id-number">Id Number:</label>
+                <input type="id-number" id="new-user-id-number" name="id-number"><br><br>
+
+                <button id="create-new-account-form">Create Account</button>
+
             </form>
         </div>
     </script>
@@ -82,6 +96,12 @@
     <script id="about-template" type="text/handlebars-template">
         <p>
             Samanthas Peace about page!!!
+        </p>
+    </script>
+
+    <script id="after-submission-template" type="text/handlebars-template">
+        <p>
+            Welcome to Samanthas Peace
         </p>
     </script>
 

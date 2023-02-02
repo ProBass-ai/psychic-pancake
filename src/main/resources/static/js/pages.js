@@ -23,3 +23,9 @@ export function renderCreateNewAccountPage(){
     var template = Handlebars.compile(script);
     document.getElementById("middle").innerHTML = template();
 }
+
+export function renderNewAccPage(){
+    var script = document.getElementById("after-submission-template").innerHTML;
+    var template = Handlebars.compile(script);
+    document.getElementById("middle").innerHTML = template();
+}

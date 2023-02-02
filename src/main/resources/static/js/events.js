@@ -11,4 +11,8 @@ export function logEventListeners() {
     document.getElementById("login-button").addEventListener("click", pages.renderLoginPage);
 
     document.getElementById("new-account-button").addEventListener("click", pages.renderCreateNewAccountPage);
+
+    
 }
+
+

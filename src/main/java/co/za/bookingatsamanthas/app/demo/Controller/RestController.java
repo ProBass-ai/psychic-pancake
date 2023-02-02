@@ -8,13 +8,17 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.HashMap;
 
-@org.springframework.stereotype.Controller
+
+
+@Controller
 @RequestMapping("/")
-public class Controller {
+public class RestController {
 
     @Autowired
     Gson gson;
@@ -26,11 +30,15 @@ public class Controller {
 
 
     @RequestMapping(value = "/new-account", method = RequestMethod.POST)
-    public ResponseEntity createNewAccount(@RequestBody UserProfile newUser){
+    public ResponseEntity createNewAccount(@RequestBody String newUserData){
+        System.out.println("Making new UserProfile");
 
-        String newUserData = gson.toJson(newUser);
-
+        UserProfile newUser = gson.fromJson(newUserData, UserProfile.class);
         Document inserted = dbService.saveNewUSer(newUserData);
+
+        if (inserted.isEmpty()){
+            System.out.println("Failed to make object");
+        }
 
         return new ResponseEntity<>(inserted.toJson(), HttpStatus.OK);
     }
