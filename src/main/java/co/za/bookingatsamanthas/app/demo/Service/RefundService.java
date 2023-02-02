@@ -29,6 +29,7 @@ public class RefundService {
         int dayDifference = nthOfCancelationDate - nthOfBookingDate;
 
 
+
         return CalculateAmount(dayDifference, bookingAmount);
 
     }
