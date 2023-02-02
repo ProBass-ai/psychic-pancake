@@ -29,14 +29,9 @@ export function renderNewAccPage(data){
     var script = document.getElementById("after-login").innerHTML;
 
     var template = Handlebars.compile(script);
-    
-
-    
-
 
     const compiledHtml = template(data);
 
-    
     document.getElementById("middle").innerHTML = compiledHtml;
 
   }

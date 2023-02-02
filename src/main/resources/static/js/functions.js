@@ -10,21 +10,33 @@ function objectId () {
   
 
 
-async function createNewAccount(){
+async function createNewAccount() {
 
-    return await fetch("http://localhost:8080/new-account", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(formData)
-})
-.then(res => res.json())
-.then(response => {
-    console.log("Success:", JSON.stringify(response));
-    return JSON.stringify(response);
-});
+    const formData = {
+        _id : objectId(),
+        name: document.querySelector("#fname").value,
+        surname: document.querySelector("#lname").value,
+        email: document.querySelector("#new-user-email").value,
+        phoneNumber: document.querySelector("#new-user-phone-number").value,
+        idNumber: document.querySelector("#new-user-id-number").value
+    };
+
+    try {
+        const response = await fetch("http://localhost:8080/new-account", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+        const jsonResponse = await response.json();
+        return jsonResponse;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
 
 }
+
 
 export {createNewAccount}

@@ -18,34 +18,29 @@ export function logEventListeners() {
       pages.renderCreateNewAccountPage();
 
       let createNewAccountForm = document.getElementById("create-new-account-form");
+
       if (createNewAccountForm) {
+
         createNewAccountForm.addEventListener("click", function(event) {
           event.preventDefault();
 
+          functions.createNewAccount().then(userDetails => {
 
-        var userDetails = JSON.parse(functions.createNewAccount());
+            console.log(userDetails);
 
-          const context = {
-            name : userDetails.name,
-            surname : userDetails.surname,
-            email : userDetails.email,
-            phoneNumber : userDetails.phoneNumber,
-            idNumber : userDetails.idNumber
-    
-        };
+            // var userDetails = functions.createNewAccount();
+            const context = {
+              name : userDetails.name,
+              surname : userDetails.surname,
+              email : userDetails.email,
+              phoneNumber : userDetails.phoneNumber,
+              idNumber : userDetails.idNumber
+            };
 
-      //   const context = {
-      //     name : "Tebogo",
-      //     surname : "Lefatola",
-      //     email : "tb@gmail.com",
-      //     phoneNumber : "1234568",
-      //     idNumber : "12345678"
-  
-      // };
+            pages.renderNewAccPage(context);
 
-          // const context = functions.createNewAccount();
-
-          pages.renderNewAccPage(context);
+          });
+          
         });
       }
 
