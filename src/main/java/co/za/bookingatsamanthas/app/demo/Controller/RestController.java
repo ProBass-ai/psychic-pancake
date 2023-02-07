@@ -19,8 +19,6 @@ import java.util.HashMap;
 
 
 
-
-
 @Controller
 @RequestMapping("/")
 public class RestController {
@@ -95,13 +93,11 @@ public class RestController {
 
     }
 
-    @PostMapping("/upload")
+    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
     public void uploadImage(@RequestParam("imageData") String imageData) {
         // Use Base64 decoder to get the binary image data
         byte[] imageBytes = Base64.getDecoder().decode(imageData.split(",")[1]);
 
-        // Save the image to disk or do whatever you want with it.
-        // ...
     }
 
 
