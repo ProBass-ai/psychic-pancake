@@ -101,74 +101,18 @@
     </script>
 
     <script id="after-login" type="text/handlebars-template">
-        <h1>Welcome to Samantha's BNB</h1>
-<div class="container">
-  <h2>User History</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Room Booked</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each userHistory}}
-      <tr>
-        <td>{{date}}</td>
-        <td>{{room}}</td>
-        <td>{{action}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  <h2>Available Rooms</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Room Number</th>
-        <th>Type</th>
-        <th>Capacity</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each rooms}}
-      <tr>
-        <td>{{roomNumber}}</td>
-        <td>{{type}}</td>
-        <td>{{capacity}}</td>
-        <td>
-          <button class="book-room" data-room="{{roomNumber}}">Book</button>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  {{#if selectedRoom}}
-  <h2>{{selectedRoom.roomNumber}}</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each selectedRoom.bookings}}
-      <tr>
-        <td>{{date}}</td>
-        <td>
-          <button class="cancel-booking" data-booking="{{@index}}">Cancel</button>
-          <button class="reschedule-booking" data-booking="{{@index}}">Reschedule</button>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  {{/if}}
-</div>
 
+        <h1>Welcome to Samantha's BNB</h1>
+        <p>Make booking:</p>
+        <form>
+          <label for="start">Visit date:</label>
+          <input type="date" id="start" name="visit-day"></input><br></br>
+
+          <label for="start">Departure date:</label>
+          <input type="date" id="start" name="departure-day"></input><br></br>
+
+          <p><button>Submit</button></p>
+        </form>
 
     </script>
 
