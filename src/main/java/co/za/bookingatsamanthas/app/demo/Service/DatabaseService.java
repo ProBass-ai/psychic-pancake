@@ -30,7 +30,7 @@ public class DatabaseService {
     public Booking rescheduleBooking(Booking newBooking){
 
         Query query = new Query();
-        query.addCriteria(Criteria.where("email").is(newBooking.getBookedBy()));
+        query.addCriteria(Criteria.where("bookedBy").is(newBooking.getBookedBy()));
 
         Booking booking = mongoTemplate.findOne(query, Booking.class, "bookings");
         assert booking != null;
@@ -46,7 +46,6 @@ public class DatabaseService {
         Query query = new Query();
 
         query.addCriteria(Criteria.where("email").is(booking.getBookedBy()))
-                .addCriteria(Criteria.where("roomNumber").is(booking.getRoomNumber()))
                 .addCriteria(Criteria.where("dayOfVisit").is(booking.getDayOfVisit()))
                 .addCriteria(Criteria.where("dayOfDeparture").is(booking.getDayOfDeparture()));
 
