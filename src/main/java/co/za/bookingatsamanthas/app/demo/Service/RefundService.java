@@ -2,6 +2,7 @@ package co.za.bookingatsamanthas.app.demo.Service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,8 @@ public class RefundService {
     Date dayOfBooking;
 
 
+
+    @Async
     public String GetRefundAmout(LocalDateTime day, float bookingAmount){
 
         dayOfRequest = dateTimeService.getDayOfRequest2();
@@ -34,6 +37,8 @@ public class RefundService {
 
     }
 
+
+    @Async
     public String CalculateAmount(int dayDifference, float amount){
 
         if (!(dayDifference <= 7)){

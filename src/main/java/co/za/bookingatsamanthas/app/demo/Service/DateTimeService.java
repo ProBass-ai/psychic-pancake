@@ -1,5 +1,6 @@
 package co.za.bookingatsamanthas.app.demo.Service;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -47,12 +48,16 @@ public class DateTimeService {
 
     }
 
+
+    @Async
     public Date ConvertToDateObject(LocalDateTime localDateTime){
 
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 
     }
 
+
+    @Async
     public ArrayList<Date> getFromAndTo(Date startingDate, Date endingDate) {
 
         ArrayList<Date> datesInBetween = new ArrayList<>();

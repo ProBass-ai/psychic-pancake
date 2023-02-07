@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.bson.Document;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class DatabaseService {
     public MongoTemplate mongoTemplate;
 
 
-
+    @Async
     public Document saveNewBooking(String booking){
 
         Document doc = Document.parse(booking);
@@ -27,6 +28,7 @@ public class DatabaseService {
 
     }
 
+    @Async
     public Booking rescheduleBooking(Booking newBooking){
 
         Query query = new Query();
@@ -41,11 +43,12 @@ public class DatabaseService {
         return mongoTemplate.save(booking, "bookings");
     }
 
+    @Async
     public DeleteResult cancelBooking(Booking booking){
 
         Query query = new Query();
 
-        query.addCriteria(Criteria.where("email").is(booking.getBookedBy()))
+        query.addCriteria(Criteria.where("bookedBy").is(booking.getBookedBy()))
                 .addCriteria(Criteria.where("dayOfVisit").is(booking.getDayOfVisit()))
                 .addCriteria(Criteria.where("dayOfDeparture").is(booking.getDayOfDeparture()));
 
@@ -55,6 +58,7 @@ public class DatabaseService {
     }
 
 
+    @Async
     public Document saveNewUSer(String document) {
 
         Document doc = Document.parse(document);
@@ -84,7 +88,7 @@ public class DatabaseService {
     }
 
 
-
+    @Async
     public UserProfile updateUserObject(UserProfile user, HashMap<String, String> newValues){
 
         int mapLength = newValues.size();
@@ -109,7 +113,7 @@ public class DatabaseService {
     }
 
 
-
+    @Async
     public UserProfile getUserByEmail(String email) {
 
         Query query = new Query();
@@ -131,9 +135,6 @@ public class DatabaseService {
 
         return null;
     }
-
-
-
 
 
 }

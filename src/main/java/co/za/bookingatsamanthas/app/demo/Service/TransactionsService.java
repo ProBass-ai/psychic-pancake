@@ -1,5 +1,6 @@
 package co.za.bookingatsamanthas.app.demo.Service;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,25 +22,25 @@ public class TransactionsService {
     Date endingDate;
 
 
-
+    @Async
     public TransactionsService numberOfDays(int numberOfDaysIn){
         this.numberOfDaysIn = numberOfDaysIn;
         return this;
     }
 
-
+    @Async
     public TransactionsService From(Date startingDate){
         this.startingDate = startingDate;
         return this;
     }
 
-
+    @Async
     public TransactionsService To(Date endingDate){
         this.endingDate = endingDate;
         return this;
     }
 
-
+    @Async
     public String Costs(){
         dth = new DateTimeService();
         ArrayList<Date> dates = dth.getFromAndTo(startingDate, endingDate);
