@@ -11,7 +11,7 @@
 
 <body>
 
-    <div class="loader_container">
+    <div class="main_container">
         <header>
             <h1 href="/">Samantha's Peace</h1>
 
@@ -88,7 +88,7 @@
                 <label for="new-user-id-number">Id Number:</label>
                 <input type="id-number" id="new-user-id-number" name="id-number"><br><br>
 
-                <button id="create-new-account-form">Create Account</button>
+                <input id="create-new-account-form" type="submit">
 
             </form>
         </div>
@@ -96,23 +96,25 @@
 
     <script id="about-template" type="text/handlebars-template">
         <p>
-            Samanthas Peace about page!!!
+          Welcome to our charming bed no breakfast, where comfort and hospitality are always at the forefront. Our beautifully designed rooms are the perfect escape from the hustle and bustle of daily life, offering a cozy and relaxing atmosphere. Whether you're here for business or leisure, you'll find all the amenities you need to feel right at home. Our delicious breakfast is made with love, using only the freshest ingredients, and is the perfect start to your day. Our friendly and knowledgeable staff is available 24/7 to assist you with anything you may need during your stay. Come experience a memorable and rejuvenating stay with us!
         </p>
     </script>
 
     <script id="after-login" type="text/handlebars-template">
 
-        <h1>Welcome to Samantha's Peace</h1>
-        <p>Make booking:</p>
-        <form>
-          <label for="start">Visit date:</label>
-          <input type="date" id="start-visit" name="visit-day"></input><br></br>
+        <div>
+          <h1>Welcome to Samantha's Peace</h1>
+          <p>Make booking:</p>
+          <form>
+            <label for="start-visit">Visit date:</label>
+            <input type="date" id="start-visit" name="visit-day"></input><br></br>
 
-          <label for="start">Departure date:</label>
-          <input type="date" id="end-visit" name="departure-day"></input><br></br>
+            <label for="end-visit">Departure date:</label>
+            <input type="date" id="end-visit" name="departure-day"></input><br></br>
 
-          <p><button>Submit</button></p>
-        </form>
+            <p><button>Submit</button></p>
+          </form>
+        </div>
 
     </script>
 
