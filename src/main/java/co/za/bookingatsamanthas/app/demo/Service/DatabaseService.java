@@ -1,6 +1,9 @@
 package co.za.bookingatsamanthas.app.demo.Service;
 
+import co.za.bookingatsamanthas.app.demo.DTO.RoomDTO;
 import co.za.bookingatsamanthas.app.demo.Repository.Booking;
+import co.za.bookingatsamanthas.app.demo.DTO.BookingDTO;
+import co.za.bookingatsamanthas.app.demo.Repository.Room;
 import co.za.bookingatsamanthas.app.demo.Repository.UserProfile;
 import com.mongodb.client.result.DeleteResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.bson.Document;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -137,4 +141,76 @@ public class DatabaseService {
     }
 
 
+    @Async
+    public BookingDTO[] getPreviousBookings(String userEmail){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("bookedBy").is(userEmail));
+
+        Booking[] querriedBookings = new ArrayList<>(
+                mongoTemplate.find(query, Booking.class, "bookings")
+        ).toArray(new Booking[0]);
+
+        BookingDTO[] bookingDTOS = new BookingDTO[querriedBookings.length];
+
+        for (int i = 0; i < querriedBookings.length; i++) {
+
+            BookingDTO bookingDTO = new BookingDTO(
+                    querriedBookings[i].getBookedBy(),
+                    querriedBookings[i].getDayOfVisit(),
+                    querriedBookings[i].getDayOfDeparture(),
+                    querriedBookings[i].getAmount()
+            );
+
+            bookingDTOS[i] = bookingDTO;
+        }
+
+        return bookingDTOS;
+    }
+
+
+    @Async
+    public RoomDTO[] getAvalableRooms(){
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("isAvailable").is("true"));
+
+        Room[] querriedRooms = new ArrayList<>(
+                mongoTemplate.find(query, Room.class, "rooms")
+        ).toArray(new Room[0]);
+
+        RoomDTO[] roomDTOS = new RoomDTO[querriedRooms.length];
+
+        for (int i = 0; i < querriedRooms.length; i++) {
+            RoomDTO room = new RoomDTO(
+                    querriedRooms[i].getRoomNumber().toString(),
+                    querriedRooms[i].isRoomAvailable()
+            );
+
+            roomDTOS[i] = room;
+        }
+
+        return roomDTOS;
+    }
+
+
+
+
+
+
+    @Async
+    public ArrayList<Room> getAvailableRooms(){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("isRoomAvailable").is("true"));
+
+        ArrayList<Room> availableRooms = new ArrayList<>(
+                mongoTemplate.find(query, Room.class, "rooms")
+        );
+
+        return availableRooms;
+    }
+
+    @Async
+    public void getProfileInfo(){
+
+    }
 }

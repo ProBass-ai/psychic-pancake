@@ -1,6 +1,9 @@
 package co.za.bookingatsamanthas.app.demo.Controller;
 
+import co.za.bookingatsamanthas.app.demo.DTO.RoomDTO;
 import co.za.bookingatsamanthas.app.demo.Repository.Booking;
+import co.za.bookingatsamanthas.app.demo.DTO.BookingDTO;
+import co.za.bookingatsamanthas.app.demo.Repository.Room;
 import co.za.bookingatsamanthas.app.demo.Repository.UserProfile;
 import co.za.bookingatsamanthas.app.demo.Service.DatabaseService;
 import com.google.gson.Gson;
@@ -31,7 +34,6 @@ public class RestController {
     DatabaseService dbService;
 
 
-
     @RequestMapping(value = "/new-account", method = RequestMethod.POST)
     public ResponseEntity createNewAccount(@RequestBody String newUserData){
 
@@ -47,18 +49,32 @@ public class RestController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ResponseEntity login(@RequestBody HashMap<String, String> requestBody){
+    public ResponseEntity login(@RequestBody HashMap<String, Object> requestBody){
 
-        String email = requestBody.get("email");
+        String email = (String) requestBody.get("email");
 
-        // must return customers history
+        // must return customers history : Done
         // go to database
-        // get any booking that contains the customers email(as emails can's be repeated)
+        // get any booking that contains the customers email(as emails can't be repeated) : Done
         // get any booking the customer cancelled
-        // get return rooms and their availability status
+        // get return rooms and their availability status : Done
         // send them over to front-end
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        UserProfile userProfile = dbService.getUserByEmail(email);
+
+        HashMap<String, Object> userBasicInfo = new HashMap<>(5);
+
+        BookingDTO[] previousBookings = dbService.getPreviousBookings(email);
+
+        RoomDTO[] availableRooms = dbService.getAvalableRooms();
+
+        userBasicInfo.put("email", userProfile.getEmail());
+        userBasicInfo.put("name", userProfile.getName());
+        userBasicInfo.put("surname", userProfile.getSurname());
+        userBasicInfo.put("previousBookings", previousBookings);
+        userBasicInfo.put("availableRooms", availableRooms);
+
+        return new ResponseEntity<>(gson.toJson(userBasicInfo), HttpStatus.OK);
     }
 
 
@@ -70,6 +86,7 @@ public class RestController {
         return new ResponseEntity<>(doc.toJson(), HttpStatus.CREATED);
     }
 
+
     @RequestMapping(value = "/update-booking", method = RequestMethod.PUT)
     public ResponseEntity updateBooking(@RequestBody HashMap<String, Object> bookingString){
 
@@ -77,6 +94,7 @@ public class RestController {
 
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/delete-booking", method = RequestMethod.DELETE)
     public ResponseEntity deleteBooking(@RequestBody Booking booking) {
@@ -86,12 +104,13 @@ public class RestController {
         // need to fix validation method
 
         if (operationResult){
-            return new ResponseEntity<>(Boolean.toString(operationResult), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(Boolean.toString(true), HttpStatus.ACCEPTED);
         } else {
-            return new ResponseEntity<>(Boolean.toString(operationResult), HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>(Boolean.toString(false), HttpStatus.EXPECTATION_FAILED);
         }
 
     }
+
 
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
     public void uploadImage(@RequestParam("imageData") String imageData) {
