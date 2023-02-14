@@ -1,5 +1,6 @@
 package co.za.bookingatsamanthas.app.demo.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,10 @@ public class TransactionsService {
 
     float finalCost;
     int numberOfDaysIn;
+
+    @Autowired
     DateTimeService dth;
+
     Date startingDate;
     Date endingDate;
 
@@ -29,14 +33,15 @@ public class TransactionsService {
     }
 
     @Async
-    public TransactionsService From(Date startingDate){
-        this.startingDate = startingDate;
+    public TransactionsService From(String startingDate){
+
+        this.startingDate = dth.parseDateString(startingDate);
         return this;
     }
 
     @Async
-    public TransactionsService To(Date endingDate){
-        this.endingDate = endingDate;
+    public TransactionsService To(String endingDate){
+        this.endingDate = dth.parseDateString(endingDate);
         return this;
     }
 

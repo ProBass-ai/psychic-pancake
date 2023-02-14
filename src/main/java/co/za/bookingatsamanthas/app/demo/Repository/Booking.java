@@ -18,7 +18,7 @@ public class Booking {
     @Id
     private ObjectId id;
     private String bookedBy;
-//    private RoomNumber roomNumber;
+    private String roomNumber;
     private String bookingDate;
     private String dayOfVisit;
     private String dayOfDeparture;

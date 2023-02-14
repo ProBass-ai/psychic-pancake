@@ -26,8 +26,14 @@ public class DatabaseService {
 
     @Async
     public Document saveNewBooking(String booking){
+        // to be refactored
 
         Document doc = Document.parse(booking);
+
+        String roomNumber = (String) doc.get("roomNumber");
+
+        makeRoomUnavailable(roomNumber);
+
         return mongoTemplate.insert(doc, "bookings");
 
     }
@@ -37,6 +43,7 @@ public class DatabaseService {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("bookedBy").is(newBooking.getBookedBy()));
+//                .addCriteria(Criteria.where("bookingDate").is(newBooking.getBookingDate()));
 
         Booking booking = mongoTemplate.findOne(query, Booking.class, "bookings");
         assert booking != null;
@@ -56,9 +63,41 @@ public class DatabaseService {
                 .addCriteria(Criteria.where("dayOfVisit").is(booking.getDayOfVisit()))
                 .addCriteria(Criteria.where("dayOfDeparture").is(booking.getDayOfDeparture()));
 
+
         DeleteResult deleteResult = mongoTemplate.remove(query, Booking.class, "bookings");
 
+        makeRoomAvailable(booking.getRoomNumber());
+
         return deleteResult;
+    }
+
+
+    @Async
+    private void makeRoomAvailable(String roomNumber){
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("roomNumber").is(roomNumber));
+
+        Room room = mongoTemplate.findOne(query, Room.class, "rooms");
+        assert room != null;
+
+        room.setIsRoomAvailable("true");
+
+        mongoTemplate.save(room, "rooms");
+
+    }
+
+    @Async
+    private void makeRoomUnavailable(String roomNumber){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("roomNumber").is(roomNumber));
+
+        Room room = mongoTemplate.findOne(query, Room.class, "rooms");
+        assert room != null;
+
+        room.setIsRoomAvailable("false");
+
+        mongoTemplate.save(room, "rooms");
     }
 
 
@@ -134,7 +173,6 @@ public class DatabaseService {
         } catch (NullPointerException npe){
             // report back to frontend
 //            throw (npe);
-
         }
 
         return null;
@@ -172,7 +210,7 @@ public class DatabaseService {
     public RoomDTO[] getAvalableRooms(){
 
         Query query = new Query();
-        query.addCriteria(Criteria.where("isAvailable").is("true"));
+        query.addCriteria(Criteria.where("isRoomAvailable").is(true));
 
         Room[] querriedRooms = new ArrayList<>(
                 mongoTemplate.find(query, Room.class, "rooms")
@@ -182,8 +220,8 @@ public class DatabaseService {
 
         for (int i = 0; i < querriedRooms.length; i++) {
             RoomDTO room = new RoomDTO(
-                    querriedRooms[i].getRoomNumber().toString(),
-                    querriedRooms[i].isRoomAvailable()
+                    querriedRooms[i].getRoomNumber(),
+                    querriedRooms[i].getIsRoomAvailable()
             );
 
             roomDTOS[i] = room;
@@ -197,17 +235,17 @@ public class DatabaseService {
 
 
 
-    @Async
-    public ArrayList<Room> getAvailableRooms(){
-        Query query = new Query();
-        query.addCriteria(Criteria.where("isRoomAvailable").is("true"));
-
-        ArrayList<Room> availableRooms = new ArrayList<>(
-                mongoTemplate.find(query, Room.class, "rooms")
-        );
-
-        return availableRooms;
-    }
+//    @Async
+//    public ArrayList<Room> getAvailableRooms(){
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("isRoomAvailable").is("true"));
+//
+//        ArrayList<Room> availableRooms = new ArrayList<>(
+//                mongoTemplate.find(query, Room.class, "rooms")
+//        );
+//
+//        return availableRooms;
+//    }
 
     @Async
     public void getProfileInfo(){

@@ -3,6 +3,8 @@ package co.za.bookingatsamanthas.app.demo.Service;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -20,14 +22,9 @@ public class DateTimeService {
 
 
 
-    public void setDateOf(int year, Month month, int day, int hour, int minute) {
-        dateOf = LocalDateTime.of(year, month, day, hour, minute);
-    }
-
 
     public String getDateTimeNow() {
         Date date = new Date();
-
         return LocalDateTime.now().toString();
     }
 
@@ -36,12 +33,9 @@ public class DateTimeService {
         return localDate.toString();
     }
 
-    public Date getDayOfRequest2(){
-        return new Date();
-    };
 
     public int getNthOfDay(Date date) {
-
+//        Date date = parseDateString(dateString);
         calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_YEAR);
@@ -50,11 +44,20 @@ public class DateTimeService {
 
 
     @Async
-    public Date ConvertToDateObject(LocalDateTime localDateTime){
+    public Date parseDateString(String dateString){
 
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = formatter.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
 
     }
+
 
 
     @Async

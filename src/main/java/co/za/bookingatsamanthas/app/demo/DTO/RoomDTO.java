@@ -9,6 +9,6 @@ import lombok.Setter;
 public class RoomDTO {
 
     public String roomNumber;
-    public boolean isAvailable;
+    public String isAvailable;
 
 }

@@ -56,7 +56,6 @@ class SamanthasPeaceApplicationTests {
 		Query query = new Query();
 
 		query.addCriteria(Criteria.where("email").is(booking.getBookedBy())
-				.andOperator(Criteria.where("roomNumber").is(booking.getRoomNumber()))
 				.andOperator(Criteria.where("dayOfVisit").is(booking.getDayOfVisit()))
 				.andOperator(Criteria.where("dayOfDeparture").is(booking.getDayOfDeparture()))
 		);

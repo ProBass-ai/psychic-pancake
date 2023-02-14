@@ -14,28 +14,18 @@ public class RefundService {
     @Autowired
     DateTimeService dateTimeService;
 
-    Date dayOfRequest;
-
-    Date dayOfBooking;
 
 
-
-    @Async
-    public String GetRefundAmout(LocalDateTime day, float bookingAmount){
-
-        dayOfRequest = dateTimeService.getDayOfRequest2();
-        dayOfBooking = dateTimeService.ConvertToDateObject(day);
-
-
-        int nthOfBookingDate = dateTimeService.getNthOfDay(dayOfBooking);
-        int nthOfCancelationDate = dateTimeService.getNthOfDay(dayOfRequest);
-        int dayDifference = nthOfCancelationDate - nthOfBookingDate;
-
-
-
-        return CalculateAmount(dayDifference, bookingAmount);
-
-    }
+//    @Async
+//    public String GetRefundAmout(String dayOfBooking, float bookingAmount){
+//
+//        int nthOfBookingDate = dateTimeService.getNthOfDay(dayOfBooking);
+//        int nthOfCancelationDate = dateTimeService.getNthOfDay(dateTimeService.getTodaysDate());
+//        int dayDifference = nthOfCancelationDate - nthOfBookingDate;
+//
+//        return CalculateAmount(dayDifference, bookingAmount);
+//
+//    }
 
 
     @Async

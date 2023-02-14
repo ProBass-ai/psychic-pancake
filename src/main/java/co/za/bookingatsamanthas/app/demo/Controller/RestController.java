@@ -6,6 +6,8 @@ import co.za.bookingatsamanthas.app.demo.DTO.BookingDTO;
 import co.za.bookingatsamanthas.app.demo.Repository.Room;
 import co.za.bookingatsamanthas.app.demo.Repository.UserProfile;
 import co.za.bookingatsamanthas.app.demo.Service.DatabaseService;
+import co.za.bookingatsamanthas.app.demo.Service.DateTimeService;
+import co.za.bookingatsamanthas.app.demo.Service.TransactionsService;
 import com.google.gson.Gson;
 import freemarker.template.utility.NullArgumentException;
 import org.bson.Document;
@@ -16,7 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -32,6 +36,12 @@ public class RestController {
 
     @Autowired
     DatabaseService dbService;
+
+    @Autowired
+    TransactionsService trService;
+
+    @Autowired
+    DateTimeService dtService;
 
 
     @RequestMapping(value = "/new-account", method = RequestMethod.POST)
@@ -81,6 +91,13 @@ public class RestController {
     @RequestMapping(value = "/create-new-booking", method = RequestMethod.POST)
     public ResponseEntity createNewBooking(@RequestBody Booking booking){
 
+        String checkInDate = booking.getDayOfVisit();
+        String checkOutDate = booking.getDayOfDeparture();
+
+        String bookingAmount = trService.From(checkInDate).To(checkOutDate).Costs();
+
+        booking.setAmount(bookingAmount);
+
         Document doc = dbService.saveNewBooking(gson.toJson(booking));
 
         return new ResponseEntity<>(doc.toJson(), HttpStatus.CREATED);
@@ -90,7 +107,9 @@ public class RestController {
     @RequestMapping(value = "/update-booking", method = RequestMethod.PUT)
     public ResponseEntity updateBooking(@RequestBody HashMap<String, Object> bookingString){
 
-        String responseBody = gson.toJson(dbService.rescheduleBooking(deserilizeBooking(bookingString)));
+        String responseBody = gson.toJson(dbService.rescheduleBooking(
+                deserilizeBooking(bookingString)
+        ));
 
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
@@ -100,8 +119,6 @@ public class RestController {
     public ResponseEntity deleteBooking(@RequestBody Booking booking) {
 
         boolean operationResult = dbService.cancelBooking(booking).wasAcknowledged();
-
-        // need to fix validation method
 
         if (operationResult){
             return new ResponseEntity<>(Boolean.toString(true), HttpStatus.ACCEPTED);

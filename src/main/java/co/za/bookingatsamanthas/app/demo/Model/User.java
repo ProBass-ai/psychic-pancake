@@ -9,8 +9,8 @@ public class User {
 
     public void makeBooking(UserProfile userProfile, Booking booking) {
 
-        String email = userProfile.getEmail();
-        booking.madeBy(email);
+//        String email = userProfile.getEmail();
+//        booking.madeBy(email);
 
     }
 
