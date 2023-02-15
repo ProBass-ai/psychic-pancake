@@ -58,7 +58,7 @@ public class RestController {
     }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody HashMap<String, Object> requestBody){
 
         String email = (String) requestBody.get("email");
@@ -68,7 +68,7 @@ public class RestController {
         // get any booking that contains the customers email(as emails can't be repeated) : Done
         // get any booking the customer cancelled
         // get return rooms and their availability status : Done
-        // send them over to front-end
+        // send them over to front-end : Done
 
         UserProfile userProfile = dbService.getUserByEmail(email);
 
