@@ -1,38 +1,40 @@
 
 
 export function renderHomePage(){
-    var script = document.getElementById("main-page-template").innerHTML;
-    var template = Handlebars.compile(script);
+    let script = document.getElementById("main-page-template").innerHTML;
+    let template = Handlebars.compile(script);
     document.getElementById("middle").innerHTML = template();
 }
 
 export function renderAboutPage(){
-    var script = document.getElementById("about-template").innerHTML;
-    var template = Handlebars.compile(script);
+    let script = document.getElementById("about-template").innerHTML;
+    let template = Handlebars.compile(script);
     document.getElementById("middle").innerHTML = template();
 }
 
 export function renderLoginPage(){
-    var script = document.getElementById("login-template").innerHTML;
-    var template = Handlebars.compile(script);
+    let script = document.getElementById("login-template").innerHTML;
+    let template = Handlebars.compile(script);
     document.getElementById("middle").innerHTML = template();
 }
 
 export function renderCreateNewAccountPage(){
-    var script = document.getElementById("new-account-template").innerHTML;
-    var template = Handlebars.compile(script);
+    let script = document.getElementById("new-account-template").innerHTML;
+    let template = Handlebars.compile(script);
     document.getElementById("middle").innerHTML = template();
 }
 
-export function renderNewAccPage(data){
+export function renderAfterLoginPage(data){
 
-    var script = document.getElementById("after-login").innerHTML;
+    let script = document.getElementById("after-login-template").innerHTML;
 
-    var template = Handlebars.compile(script);
+    let template = Handlebars.compile(script);
 
-    const compiledHtml = template(data);
+    let compiledHtml = template(data);
 
     document.getElementById("middle").innerHTML = compiledHtml;
 
   }
+
+
   

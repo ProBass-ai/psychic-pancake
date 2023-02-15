@@ -9,7 +9,40 @@ export function logEventListeners() {
 
     document.getElementById("about-button").addEventListener("click", pages.renderAboutPage);
 
-    document.getElementById("login-button").addEventListener("click", pages.renderLoginPage);
+
+    document.getElementById("login-button").addEventListener("click", 
+
+      function(){
+
+        pages.renderLoginPage();
+
+        const loginForm = document.getElementById("login-form");
+
+        if (loginForm){
+
+          loginForm.addEventListener("click", function(event){
+              event.preventDefault();
+
+              functions.logUserIn().then(afterLoginInfo => {
+
+                console.log(afterLoginInfo);
+                
+                const context = {
+                  name : afterLoginInfo.name
+                }
+
+
+                pages.renderAfterLoginPage(context);
+              })
+          })
+
+        }
+
+
+      }
+
+    );
+
 
     document.getElementById("new-account-button").addEventListener("click",
 
@@ -36,7 +69,7 @@ export function logEventListeners() {
               idNumber : userDetails.idNumber
             };
 
-            pages.renderNewAccPage(context);
+            pages.renderAfterLoginPage(context);
 
           });
           

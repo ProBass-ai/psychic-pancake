@@ -31,7 +31,29 @@ async function cancelBooking(){
 
 
 }
-  
+
+
+async function logUserIn(){
+    const loginCredentials = {
+        email : document.querySelector("#email").value,
+        password : document.querySelector("#password").value
+    }
+
+    try {
+        const response = await fetch("http://localhost:8080/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginCredentials)
+        });
+        const jsonResponse = await response.json();
+        return jsonResponse;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+}
 
 
 async function createNewAccount() {
@@ -70,4 +92,4 @@ function sendImageToServer(imageData) {
   }
 
 
-export {createNewAccount, sendImageToServer}
+export {createNewAccount, sendImageToServer, logUserIn}

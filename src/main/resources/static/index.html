@@ -57,10 +57,10 @@
 
             </aside>
 
-            <form id="login-form">
+            <form>
                 <input type="email" name="email" id="email" />Enter Email</input>
-                <input type="password" name="email" id="password" />Enter Password</input>
-                <input type="submit" value="Login" />
+                <input type="password" name="password" id="password" />Enter Password</input>
+                <input id="login-form" type="submit" value="Login" />
             </form>
         </div>
     </script>
@@ -94,16 +94,11 @@
         </div>
     </script>
 
-    <script id="about-template" type="text/handlebars-template">
-        <p>
-          Welcome to our charming bed no breakfast, where comfort and hospitality are always at the forefront. Our beautifully designed rooms are the perfect escape from the hustle and bustle of daily life, offering a cozy and relaxing atmosphere. Whether you're here for business or leisure, you'll find all the amenities you need to feel right at home. Our delicious breakfast is made with love, using only the freshest ingredients, and is the perfect start to your day. Our friendly and knowledgeable staff is available 24/7 to assist you with anything you may need during your stay. Come experience a memorable and rejuvenating stay with us!
-        </p>
-    </script>
 
-    <script id="after-login" type="text/handlebars-template">
+    <script id="after-login-template" type="text/handlebars-template">
 
         <div>
-          <h1>Welcome to Samantha's Peace</h1>
+          <h1>Welcome to Samantha's Peace {{name}}</h1><br></br>
           <p>Make booking:</p>
           <form>
             <label for="start-visit">Visit date:</label>
@@ -112,10 +107,17 @@
             <label for="end-visit">Departure date:</label>
             <input type="date" id="end-visit" name="departure-day"></input><br></br>
 
-            <p><button>Submit</button></p>
+            <input id="booking-form" type="submit">
           </form>
         </div>
 
+    </script>
+
+
+    <script id="about-template" type="text/handlebars-template">
+        <p>
+          Welcome to our charming bed no breakfast, where comfort and hospitality are always at the forefront. Our beautifully designed rooms are the perfect escape from the hustle and bustle of daily life, offering a cozy and relaxing atmosphere. Whether you're here for business or leisure, you'll find all the amenities you need to feel right at home. Our delicious breakfast is made with love, using only the freshest ingredients, and is the perfect start to your day. Our friendly and knowledgeable staff is available 24/7 to assist you with anything you may need during your stay. Come experience a memorable and rejuvenating stay with us!
+        </p>
     </script>
 
     <footer id="footer">
