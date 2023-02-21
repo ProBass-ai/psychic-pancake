@@ -59,8 +59,6 @@ export function logEventListeners() {
 
           functions.createNewAccount().then(userDetails => {
 
-            // console.log(userDetails);
-
             const context = {
               name : userDetails.name,
               surname : userDetails.surname,
